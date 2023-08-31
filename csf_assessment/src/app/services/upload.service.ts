@@ -1,3 +1,4 @@
+import { State, TagCount } from 'src/app/models';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
@@ -8,6 +9,9 @@ import { firstValueFrom } from 'rxjs';
 export class UploadService {
 
   constructor(private httpClient: HttpClient) { }
+
+  state: State = { minutes: 0, tagList: [] };
+  doNotLoad: boolean = false;
 
   upload(form: FormData) {
     // const form = new FormData();
@@ -27,5 +31,12 @@ export class UploadService {
       return firstValueFrom(this.httpClient.get<any>('/api/details', { params }));
   }
 
+  saveState(minutes: number, tagList: TagCount[]) {
+    this.state.minutes = minutes;
+    this.state.tagList = tagList;
+  }
 
+  loadState(): State {
+    return this.state;
+  }
 }

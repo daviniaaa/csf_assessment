@@ -1,3 +1,4 @@
+import { State } from './../../models';
 import { Component, OnInit } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { TagCount } from 'src/app/models';
@@ -10,17 +11,26 @@ import { UploadService } from 'src/app/services/upload.service';
 })
 export class HomeComponent implements OnInit {
   timeOptions: number[] = [ 5, 15, 30, 45, 60 ];
-  noOfMins: string = '5 mins';
+  noOfMins: string = '';
   minutes: number = 5;
   tagList: TagCount[] = [];
 
   constructor(private uploadSvc: UploadService, private router: Router) {}
   ngOnInit() {
-    this.uploadSvc.getTags(this.minutes).then( data => {
-      console.log("tag rseults >> " + data);
-      this.tagList = [...data];
-    })
+    if (this.uploadSvc.doNotLoad) {
+      const s: State = this.uploadSvc.loadState();
+      console.log(s); console.log(s.minutes);
+      this.minutes = s.minutes;
+      this.tagList = s.tagList;
+    } else {
+      this.uploadSvc.getTags(this.minutes).then( data => {
+        console.log("tag rseults >> " + data);
+        this.tagList = [...data];
+      })
+    }
+    this.noOfMins = this.minutes + " mins";
   }
+
 
   onChange(newValue: string) {
     console.log("no of minutes >> "+ this.noOfMins);
@@ -39,6 +49,8 @@ export class HomeComponent implements OnInit {
       tag: tag,
       minutes: this.minutes
     }
+    this.uploadSvc.saveState(this.minutes, this.tagList);
+
     this.router.navigate(["/details"], { queryParams });
   }
 

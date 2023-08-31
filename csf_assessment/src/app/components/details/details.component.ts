@@ -26,5 +26,9 @@ export class DetailsComponent implements OnInit {
     })
   }
 
+  loadState() {
+    this.uploadSvc.doNotLoad = true;
+  }
+
 
 }

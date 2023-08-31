@@ -11,3 +11,8 @@ export interface News {
   image: string;
   tags: string[];
 }
+
+export interface State {
+  minutes: number;
+  tagList: TagCount[];
+}
