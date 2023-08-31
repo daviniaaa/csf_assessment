@@ -73,6 +73,7 @@ export class PostComponent implements OnInit{
     this.uploadSvc.upload(form).then(result => {
       alert(JSON.stringify(result));
 
+      this.uploadSvc.doNotLoad = false;
       this.router.navigate(['/']);
     })
   }
