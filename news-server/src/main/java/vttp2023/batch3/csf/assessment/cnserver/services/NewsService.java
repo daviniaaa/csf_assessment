@@ -2,6 +2,8 @@ package vttp2023.batch3.csf.assessment.cnserver.services;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -81,6 +83,12 @@ public class NewsService {
 
 			newsList.add(tempNews);
 		}
+
+		Collections.sort(newsList, new Comparator<News>(){
+			public int compare(News n1, News n2) {
+				return ((Long) (n2.getPostDate() - n1.getPostDate())).intValue();
+			}
+		});
 
 		return newsList;
 	}

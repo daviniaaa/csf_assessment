@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { News } from 'src/app/models';
 import { UploadService } from 'src/app/services/upload.service';
 
@@ -13,10 +13,12 @@ export class DetailsComponent implements OnInit {
   minutes: number = 0;
   newsList: News[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private uploadSvc: UploadService) {}
+  constructor(private activatedRoute: ActivatedRoute, private uploadSvc: UploadService,
+    private router: Router) {}
 
 
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.tag = this.activatedRoute.snapshot.queryParams['tag'];
     this.minutes = this.activatedRoute.snapshot.queryParams['minutes'];
 
@@ -30,5 +32,15 @@ export class DetailsComponent implements OnInit {
     this.uploadSvc.doNotLoad = true;
   }
 
+  goToTag(tag: string) {
+    console.log("goToTag() clicked !!")
+    const queryParams: Params = {
+      tag: tag,
+      minutes: this.minutes
+    }
+
+    this.router.navigate(["/details"], { queryParams });
+
+  }
 
 }
