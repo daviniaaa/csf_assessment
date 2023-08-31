@@ -1,0 +1,34 @@
+<h1>Share a News</h1>
+<form [formGroup]="postForm" (ngSubmit)="post()">
+  <table>
+    <tr>
+      <td>Title: </td>
+      <td colspan="2">
+        <input type="text" formControlName="title">
+      </td>
+    </tr>
+    <tr>
+      <td>Photo: </td>
+      <td colspan="2"><input type="file" (input)="imageSelected()" #image></td>
+    </tr>
+    <tr>
+      <td>Description: </td>
+      <td colspan="2">
+        <textarea formControlName="description"></textarea>
+      </td>
+    </tr>
+    <tr>
+
+<td colspan="3"><app-tags></app-tags></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><button [routerLink]="['/']">Back</button></td>
+      <td><button type="submit" [disabled]="!(this.postForm.valid && imageValid)">Post News</button></td>
+    </tr>
+  </table>
+</form>
+
+
+

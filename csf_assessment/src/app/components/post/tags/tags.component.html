@@ -1,0 +1,23 @@
+<div>
+  <!-- <input type="text" formControlName="tags"> -->
+  <form [formGroup]="tagsForm" (ngSubmit)="addTag()">
+    <table>
+      <tr>
+        <td width="75">Tags: </td>
+        <td><input type="text" formControlName="tags"></td>
+        <td><button type="submit"> + </button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2" width="180">
+          <div>
+            <span *ngFor="let t of tags">
+              <button (click)="deleteTag(t)" style="background-color: aliceblue; border-radius: 2;">
+                {{ t }}</button>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

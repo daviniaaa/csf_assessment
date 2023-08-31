@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <td><b>Time </b></td>
+    <td><select [ngModel]="noOfMins" (ngModelChange)="onChange($event)" [value]="noOfMins">
+      <option *ngFor="let t of timeOptions">{{ t }} mins</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><button [routerLink]="['/post']">Post News</button></td>
+  </tr>
+</table>
+
+<h4>Top Tags</h4>
+<div *ngIf="tagList.length > 0" else notags>
+  <p *ngFor="let t of tagList">
+    <a [routerLink]="['/details']" (click)="tagDetails(t.tag)">{{ t.tag }} &#40;{{ t.count }}&#41;</a>
+    <!-- <a [routerLink]="['/details']">{{ t.tag }} &#40;{{ t.count }}&#41;</a> -->
+  </p>
+</div>
+<div #notags>
+  <ng-template>No news hashtags found within the last {{minutes}} minutes</ng-template>
+</div>
