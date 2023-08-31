@@ -1,7 +1,6 @@
 package vttp2023.batch3.csf.assessment.cnserver.controllers;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import vttp2023.batch3.csf.assessment.cnserver.models.News;
 import vttp2023.batch3.csf.assessment.cnserver.models.TagCount;
-import vttp2023.batch3.csf.assessment.cnserver.repositories.ImageRepository;
 import vttp2023.batch3.csf.assessment.cnserver.services.NewsService;
 
 @RestController
@@ -51,5 +50,11 @@ public class NewsController {
 
 
 	// TODO: Task 3
+	@GetMapping(path = "/details", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<News>> postDetails(@RequestParam String tag, @RequestParam long minutes) {
+		System.out.println("GetMapping - postDetails() called");
+		List<News> newsList = service.getNewsByTag(tag, minutes);
+		return ResponseEntity.ok(newsList);
+	}
 
 }

@@ -11,7 +11,14 @@
   </tr>
   <tr>
     <td colspan="3">
-
+      <!-- {{newsList | json}} -->
+      <table *ngFor="let n of newsList" border="1" width="500">
+        <h4>{{n.title}}</h4>
+        <p>Publish date: {{n.postDate | date}}</p>
+        <img src="{{n.image}}" height="200">
+        <p>{{n.description}}</p>
+        <span *ngFor="let t of n.tags" style="background-color: aliceblue;">{{t}}</span>
+      </table>
     </td>
   </tr>
 </table>

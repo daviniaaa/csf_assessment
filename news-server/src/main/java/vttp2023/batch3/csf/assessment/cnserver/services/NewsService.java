@@ -65,8 +65,24 @@ public class NewsService {
 	// Do not change the method name and the return type
 	// You may add any number of parameters
 	// Returns a list of news
-	public List<News> getNewsByTag(/* Any number of parameters */) {
-		return new LinkedList<>();
+	public List<News> getNewsByTag(String tag, long minutesLimit) {
+		long timeLimit = System.currentTimeMillis() - (minutesLimit * 60 * 1000);
+		List<Document> docList = newsRepo.getDetails(tag, timeLimit);
+		List<News> newsList = new LinkedList<>();
+
+		for(Document d : docList) {
+			News tempNews = new News();
+			tempNews.setId(d.getObjectId("_id").toString());
+			tempNews.setPostDate(d.getLong("postDate"));
+			tempNews.setTitle(d.getString("title"));
+			tempNews.setDescription(d.getString("description"));
+			tempNews.setImage(d.getString("image"));
+			tempNews.setTags(d.getList("tags", String.class));
+
+			newsList.add(tempNews);
+		}
+
+		return newsList;
 	}
 	
 }

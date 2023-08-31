@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import jakarta.json.Json;
@@ -91,6 +92,17 @@ public class NewsRepository {
 
 	// TODO: Task 3
 	// Write the native Mongo query in the comment above the method
+		// db.news.find({
+		// 	tags: 'tag1',
+		// 	postDate: { $gte: 1693459101000 }
+		// })
+	public List<Document> getDetails(String tag, long timeLimit) {
+		Criteria c = Criteria
+			.where("tags").is(tag)
+			.and("postDate").gte(timeLimit);
+		Query q = Query.query(c);
 
+		return template.find(q, Document.class, "news");
+	}
 
 }

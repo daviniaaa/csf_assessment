@@ -5,15 +5,15 @@
       <tr>
         <td width="75">Tags: </td>
         <td><input type="text" formControlName="tags"></td>
-        <td><button type="submit"> + </button></td>
+        <td><button type="submit" [disabled]="tagsForm.invalid"> + </button></td>
       </tr>
       <tr>
         <td></td>
         <td colspan="2" width="180">
           <div>
             <span *ngFor="let t of tags">
-              <button (click)="deleteTag(t)" style="background-color: aliceblue; border-radius: 2;">
-                {{ t }}</button>
+              <button (click)="deleteTag(t)" style="background-color: aliceblue;
+              border-radius: 8px; margin: 2px;">{{ t }}</button>
             </span>
           </div>
         </td>

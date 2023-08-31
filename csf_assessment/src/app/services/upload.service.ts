@@ -21,6 +21,11 @@ export class UploadService {
     return firstValueFrom(this.httpClient.get<any>('/api/home', { params }));
   }
 
+  getDetails(tag:string, minutes:number) {
+    const params: HttpParams = new HttpParams()
+      .set("tag", tag).set("minutes", minutes);
+      return firstValueFrom(this.httpClient.get<any>('/api/details', { params }));
+  }
 
 
 }

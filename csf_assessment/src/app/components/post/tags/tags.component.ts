@@ -14,7 +14,7 @@ export class TagsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagsForm = this.fb.group({
-      tags: this.fb.control<string>('')
+      tags: this.fb.control<string>('', [ Validators.required ])
     })
   }
 
@@ -25,6 +25,9 @@ export class TagsComponent implements OnInit {
       if ((this.tags.find(x => x == s)) == undefined)
         this.tags.push(s);
     }
+    this.tagsForm = this.fb.group({
+      tags: this.fb.control<string>('', [ Validators.required ])
+    })
   }
 
   deleteTag(tag: string) {
